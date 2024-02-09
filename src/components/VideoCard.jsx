@@ -4,23 +4,27 @@ const VideoCard = ({ info }) => {
   const { snippet, statistics } = info;
   const { channelTitle, title, thumbnails } = snippet;
   return (
-    <div className="p-2 m-2 w-60 h-96 rounded-lg shadow-lg overflow-x-hidden">
+    <div className="p-2 m-2 w-[270px] h-72 rounded-lg shadow-lg overflow-x-hidden">
       <img
         src={thumbnails.medium.url}
         alt="Thumbnail"
         className="rounded-lg"
       />
       <ul>
-        <li className="font-bold py-2">{title}</li>
-        <li>{channelTitle}</li>
-        <li>{statistics.viewCount} Views</li>
+        <li className="font-bold py-2 overflow-hidden whitespace-nowrap text-ellipsis">
+          {title}
+        </li>
+        <li className="text-left font-semibold">{channelTitle}</li>
+        <li className="text-left font-semibold">
+          {statistics.viewCount} Views
+        </li>
       </ul>
     </div>
   );
 };
 
 VideoCard.propTypes = {
-  info: PropType.string.isRequired,
+  info: PropType.object.isRequired,
 };
 
 export default VideoCard;
