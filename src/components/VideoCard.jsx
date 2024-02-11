@@ -1,10 +1,11 @@
 import PropType from "prop-types";
+import { countSingleDigits } from "../utils/hepler";
 
 const VideoCard = ({ info }) => {
   const { snippet, statistics } = info;
   const { channelTitle, title, thumbnails } = snippet;
   return (
-    <div className="p-2 m-2 w-[270px] h-72 rounded-lg shadow-lg overflow-x-hidden">
+    <div className="p-2 m-2 w-[295px] h-72 rounded-lg shadow-lg overflow-x-hidden">
       <img
         src={thumbnails.medium.url}
         alt="Thumbnail"
@@ -16,7 +17,7 @@ const VideoCard = ({ info }) => {
         </li>
         <li className="text-left font-semibold">{channelTitle}</li>
         <li className="text-left font-semibold">
-          {statistics.viewCount} Views
+          {countSingleDigits(statistics.viewCount)} Views
         </li>
       </ul>
     </div>

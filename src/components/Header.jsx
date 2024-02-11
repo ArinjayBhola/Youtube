@@ -7,6 +7,7 @@ import { toggleMenu } from "../utils/redux/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/redux/searchSlice";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +35,6 @@ const Header = () => {
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
     setSuggestion(json[1]);
-    console.log(searchQuery);
 
     // Update cache
     dispatch(cacheResults({ [searchQuery]: json[1] }));
@@ -52,7 +52,7 @@ const Header = () => {
           className="h-6 mr-5 cursor-pointer"
           onClick={showSidebar}
         />
-        <a href="/">
+        <Link to="/">
           <div className="flex">
             <FontAwesomeIcon
               icon={faYoutube}
@@ -60,7 +60,7 @@ const Header = () => {
             />
             <p className="text-2xl">YouTube</p>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="col-span-10 justify-center relative">
         <div className="flex justify-center">
