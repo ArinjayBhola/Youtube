@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useYoutubeData from "../hooks/useYoutubeData";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addChannelId, removeChannelId } from "../utils/redux/channelDataSlice";
+import { addChannelId, removeChannelId } from "../redux/channelDataSlice";
 import useChannelData from "../hooks/useChannelData";
 import { useEffect } from "react";
 import { countSingleDigits } from "../utils/hepler";

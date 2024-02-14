@@ -13,7 +13,7 @@ const useChannelData = () => {
       `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${selector}&key=${GOOGLE_API_KEY}`,
     );
     const json = await data.json();
-    if (json.items[0].length === 0) {
+    if (!json.items) {
       return null;
     }
     setChannelDetail(json.items[0].statistics);

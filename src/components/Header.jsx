@@ -3,10 +3,10 @@ import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "../utils/redux/appSlice";
+import { toggleMenu } from "../redux/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
-import { cacheResults } from "../utils/redux/searchSlice";
+import { cacheResults } from "../redux/searchSlice";
 import { Link } from "react-router-dom";
 
 const Header = () => {

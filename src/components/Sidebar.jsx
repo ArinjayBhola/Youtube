@@ -25,9 +25,9 @@ import {
 const Sidebar = () => {
   const selector = useSelector((store) => store.app.isMenuOpen);
   return (
-    <div className="absolute top-0 left-0 bg-white opacity-90">
+    <div>
       {selector && (
-        <div className="mt-4 px-4 shadow-2xl w-60">
+        <div className="mt-4 px-4 shadow-2xl w-56">
           <div className="border-b-4 pb-3">
             <h1 className="font-bold my-2">
               <FontAwesomeIcon

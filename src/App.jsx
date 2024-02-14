@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Updated import
 import Body from "./components/Body";
 import Header from "./components/Header";
-import store from "./utils/redux/appStore";
+import store from "./redux/appStore";
 import MainContainer from "./components/MainContainer";
 import WatchPage from "./components/WatchPage";
 
