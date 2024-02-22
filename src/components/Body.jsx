@@ -9,11 +9,11 @@ const Body = () => {
     <div className="flex h-screen">
       <div
         className={`fixed left-0 top-15 h-full ${
-          isSidebarVisible ? "w-60" : "w-0"
-        } overflow-y-auto bg-gray-200 z-10 transition-all duration-300 ease-in-out`}>
+          isSidebarVisible ? "w-52" : "w-0"
+        } overflow-y-auto bg-white mt-16 z-10 transition-all duration-300 ease-in-out no-scrollbar`}>
         <Sidebar />
       </div>
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow overflow-y-auto mt-16">
         <Outlet />
       </div>
     </div>

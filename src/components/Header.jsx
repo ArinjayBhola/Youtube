@@ -3,7 +3,7 @@ import { faBars, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleMenu } from "../redux/appSlice";
+import { addUserQuery, toggleMenu } from "../redux/appSlice";
 import { useEffect, useState } from "react";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../redux/searchSlice";
@@ -45,7 +45,7 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-flow-col p-3 m-2 shadow-lg -mt-1">
+    <div className="grid grid-flow-col p-3 m-2 shadow-lg -mt-1 fixed top-0 left-0 w-full bg-white z-50">
       <div className="flex col-span-1 items-center">
         <FontAwesomeIcon
           icon={faBars}
@@ -73,12 +73,21 @@ const Header = () => {
             onFocus={() => setShowSuggestion(true)}
             onBlur={() => setShowSuggestion(false)}
           />
-          <button className="border border-gray-400 px-2 rounded-r-full h-10 bg-gray-100 hover:bg-gray-200">
-            <FontAwesomeIcon
-              icon={faMagnifyingGlass}
-              className="w-10"
-            />
-          </button>
+          <Link to={"result"}>
+            <button
+              className="border border-gray-400 px-2 rounded-r-full h-10 bg-gray-100 hover:bg-gray-200"
+              disabled={!searchQuery}
+              onClick={() => {
+                if (searchQuery) {
+                  dispatch(addUserQuery(searchQuery));
+                }
+              }}>
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                className="w-10"
+              />
+            </button>
+          </Link>
         </div>
         {showSuggestion && (
           <div className="absolute z-10 py-2 px-5 bg-white w-1/2 border border-gray-200 left-[13.8rem] rounded-lg shadow-lg">

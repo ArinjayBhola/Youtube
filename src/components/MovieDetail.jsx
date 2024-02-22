@@ -1,28 +1,38 @@
-import {
-  faDownload,
-  faShare,
-  faThumbsDown,
-  faThumbsUp,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faShare, faThumbsDown, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useYoutubeData from "../hooks/useYoutubeData";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addChannelId, removeChannelId } from "../redux/channelDataSlice";
 import useChannelData from "../hooks/useChannelData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { countSingleDigits } from "../utils/hepler";
+import { GOOGLE_API_KEY } from "../utils/constants";
 
 const MovieDetail = () => {
+  const [videos, setVideos] = useState([]);
+  const [searchChannelDetail, setSearchChannelDetail] = useState([]);
+  const selector = useSelector((store) => store.app.userQuery);
   const [searchParams] = useSearchParams();
   const videoData = useYoutubeData();
   const dispatch = useDispatch();
   const channelDetail = useChannelData();
 
-  useEffect(() => {
-    const findVideo = videoData.filter(
-      (video) => video.id === searchParams.get("v"),
+  const fetchData = async () => {
+    const data = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${selector}&type=video&key=${GOOGLE_API_KEY}`,
     );
+    const json = await data.json();
+    setVideos(json.items);
+  };
+  useEffect(() => {
+    fetchData();
+  }, [selector]);
+
+  useEffect(() => {
+    const suggestVideo = videoData?.filter((video) => video.id === searchParams.get("v"));
+    const searchVideo = videos?.filter((video) => video.id.videoId === searchParams.get("v"));
+    const findVideo = suggestVideo.length > 0 ? suggestVideo : searchVideo;
     if (findVideo.length > 0) {
       const { snippet } = findVideo[0];
       const { channelId } = snippet;
@@ -31,17 +41,30 @@ const MovieDetail = () => {
     return () => {
       dispatch(removeChannelId());
     };
-  }, [videoData, searchParams, dispatch]);
+  }, [videoData, searchParams, videos, dispatch]);
 
-  const findVideo = videoData.filter(
-    (video) => video.id === searchParams.get("v"),
-  );
+  const suggestVideo = videoData?.filter((video) => video.id === searchParams.get("v"));
+  const searchVideo = videos?.filter((video) => video.id.videoId === searchParams.get("v"));
+  const searchVideoId = searchVideo.length > 0 ? searchVideo[0].id.videoId : "";
+  const findVideo = suggestVideo.length > 0 ? suggestVideo : searchVideo;
+
+  const fetchSearchVideoStats = async () => {
+    const data = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${searchVideoId}&key=${GOOGLE_API_KEY}`,
+    );
+    const json = await data.json();
+    setSearchChannelDetail(json.items[0].statistics);
+  };
+
+  useEffect(() => {
+    searchVideoId && fetchSearchVideoStats();
+  }, [searchVideoId]);
 
   if (findVideo.length === 0) {
     return null;
   }
 
-  const { statistics, snippet } = findVideo[0];
+  const { snippet } = findVideo[0];
   const { title, thumbnails, channelTitle } = snippet;
 
   return (
@@ -56,13 +79,9 @@ const MovieDetail = () => {
           />
           <div className="ml-3">
             <p className="font-semibold">{channelTitle}</p>
-            <p className="text-sm">
-              {countSingleDigits(channelDetail?.subscriberCount)} subscribers
-            </p>
+            <p className="text-sm">{countSingleDigits(channelDetail?.subscriberCount)} subscribers</p>
           </div>
-          <button className="ml-5 bg-black text-white p-3 rounded-2xl hover:opacity-80">
-            Subscribe
-          </button>
+          <button className="ml-5 bg-black text-white p-3 rounded-2xl hover:opacity-80">Subscribe</button>
         </div>
         <div className="flex items-center">
           <div className="m-5 p-2 flex bg-gray-300 items-center rounded-xl">
@@ -70,9 +89,11 @@ const MovieDetail = () => {
               icon={faThumbsUp}
               className="ml-3"
             />
-            <p className="border-r-2 ml-3 pr-2">
-              {countSingleDigits(statistics.likeCount)}
-            </p>
+            {suggestVideo.length > 0 ? (
+              <p className="border-r-2 ml-3 pr-2">{countSingleDigits(findVideo[0].statistics.likeCount)}</p>
+            ) : (
+              <p className="border-r-2 ml-3 pr-2">{countSingleDigits(searchChannelDetail.likeCount)}</p>
+            )}
             <FontAwesomeIcon
               icon={faThumbsDown}
               className="mx-3"
