@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { GOOGLE_API_KEY } from "../utils/constants";
 import { useEffect } from "react";
+
 const SearchVideo = ({ info }) => {
   const { snippet } = info;
   const { channelTitle, title, thumbnails, description } = snippet;
@@ -45,6 +46,9 @@ SearchVideo.propTypes = {
         }).isRequired,
       }).isRequired,
       description: PropTypes.string.isRequired,
+    }).isRequired,
+    id: PropTypes.shape({
+      videoId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

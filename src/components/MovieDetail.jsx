@@ -8,8 +8,9 @@ import useChannelData from "../hooks/useChannelData";
 import { useEffect, useState } from "react";
 import { countSingleDigits } from "../utils/hepler";
 import { GOOGLE_API_KEY } from "../utils/constants";
+import PropTypes from "prop-types";
 
-const MovieDetail = () => {
+const MovieDetail = ({ info }) => {
   const [videos, setVideos] = useState([]);
   const [searchChannelDetail, setSearchChannelDetail] = useState([]);
   const selector = useSelector((store) => store.app.userQuery);
@@ -17,6 +18,8 @@ const MovieDetail = () => {
   const videoData = useYoutubeData();
   const dispatch = useDispatch();
   const channelDetail = useChannelData();
+  const { thumbnails } = info;
+  console.log(thumbnails);
 
   const fetchData = async () => {
     const data = await fetch(
@@ -65,18 +68,20 @@ const MovieDetail = () => {
   }
 
   const { snippet } = findVideo[0];
-  const { title, thumbnails, channelTitle } = snippet;
+  const { title, channelTitle } = snippet;
 
   return (
     <div>
       <p className="px-5 m-3 -mt-11 font-bold text-xl">{title}</p>
       <div className="mx-3 -my-5 flex justify-between">
         <div className="flex m-5 items-center">
-          <img
-            src={thumbnails.high.url}
-            alt="Thumbnail"
-            className="h-10 w-10 rounded-full"
-          />
+          {thumbnails && thumbnails.default && thumbnails.default.url && (
+            <img
+              src={thumbnails.default.url}
+              alt="Thumbnail"
+              className="h-10 w-10 rounded-full"
+            />
+          )}
           <div className="ml-3">
             <p className="font-semibold">{channelTitle}</p>
             <p className="text-sm">{countSingleDigits(channelDetail?.subscriberCount)} subscribers</p>
@@ -117,6 +122,16 @@ const MovieDetail = () => {
       </div>
     </div>
   );
+};
+
+MovieDetail.propTypes = {
+  info: PropTypes.shape({
+    thumbnails: PropTypes.shape({
+      default: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default MovieDetail;

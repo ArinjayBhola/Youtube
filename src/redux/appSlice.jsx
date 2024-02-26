@@ -5,6 +5,7 @@ const appSlice = createSlice({
   initialState: {
     isMenuOpen: true,
     userQuery: "",
+    suggestedVideo: [],
   },
   reducers: {
     toggleMenu: (state) => {
@@ -16,8 +17,11 @@ const appSlice = createSlice({
     addUserQuery: (state, action) => {
       state.userQuery = action.payload;
     },
+    addVideo: (state, action) => {
+      state.suggestedVideo = action.payload;
+    },
   },
 });
 
 export default appSlice.reducer;
-export const { toggleMenu, closeMenu, addUserQuery } = appSlice.actions;
+export const { toggleMenu, closeMenu, addUserQuery, addVideo } = appSlice.actions;

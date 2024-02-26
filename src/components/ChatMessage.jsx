@@ -1,5 +1,6 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 const ChatMessage = ({ name, message }) => {
   return (
@@ -9,6 +10,11 @@ const ChatMessage = ({ name, message }) => {
       <span>{message}</span>
     </div>
   );
+};
+
+ChatMessage.propTypes = {
+  name: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 export default ChatMessage;

@@ -12,13 +12,9 @@ const VideoCard = ({ info }) => {
         className="rounded-lg"
       />
       <ul>
-        <li className="font-bold py-2 overflow-hidden whitespace-nowrap text-ellipsis">
-          {title}
-        </li>
+        <li className="font-bold py-2 overflow-hidden whitespace-nowrap text-ellipsis">{title}</li>
         <li className="text-left font-semibold">{channelTitle}</li>
-        <li className="text-left font-semibold">
-          {countSingleDigits(statistics.viewCount)} Views
-        </li>
+        <li className="text-left font-semibold">{countSingleDigits(statistics.viewCount)} Views</li>
       </ul>
     </div>
   );
