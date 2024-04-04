@@ -19,7 +19,6 @@ const MovieDetail = ({ info }) => {
   const dispatch = useDispatch();
   const channelDetail = useChannelData();
   const { thumbnails } = info;
-  console.log(thumbnails);
 
   const fetchData = async () => {
     const data = await fetch(

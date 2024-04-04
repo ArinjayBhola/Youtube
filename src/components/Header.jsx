@@ -49,25 +49,25 @@ const Header = () => {
       <div className="flex col-span-1 items-center">
         <FontAwesomeIcon
           icon={faBars}
-          className="h-6 mr-5 cursor-pointer"
+          className="hidden md:inline-block md:h-6 md:mr-5 cursor-pointer"
           onClick={showSidebar}
         />
         <Link to="/">
-          <div className="flex">
+          <div className="flex items-center">
             <FontAwesomeIcon
               icon={faYoutube}
-              className="h-8 text-red-600"
+              className="md:h-8 h-6 mr-2 md:0 text-red-600"
             />
-            <p className="text-2xl">YouTube</p>
+            <p className="md:text-2xl text-lg">YouTube</p>
           </div>
         </Link>
       </div>
-      <div className="col-span-10 justify-center relative">
-        <div className="flex justify-center">
+      <div className="md:col-span-10 justify-center relative">
+        <div className="flex justify-center items-center -ml-10">
           <input
             type="text"
             placeholder="Search..."
-            className="w-1/2 border border-gray-400 rounded-l-full h-10 px-4 text-lg focus:outline-none"
+            className="w-1/2 border border-gray-400 rounded-l-full md:h-10 h-8 px-4 text-lg focus:outline-none"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggestion(true)}
@@ -75,7 +75,7 @@ const Header = () => {
           />
           <Link to={"result"}>
             <button
-              className="border border-gray-400 px-2 rounded-r-full h-10 bg-gray-100 hover:bg-gray-200"
+              className="border border-gray-400 px-2 rounded-r-full md:h-10 h-8 bg-gray-100 hover:bg-gray-200"
               disabled={!searchQuery}
               onClick={() => {
                 if (searchQuery) {
@@ -84,13 +84,13 @@ const Header = () => {
               }}>
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
-                className="w-10"
+                className="md:w-10"
               />
             </button>
           </Link>
         </div>
         {showSuggestion && (
-          <div className="absolute z-10 py-2 px-5 bg-white w-1/2 border border-gray-200 left-[13.8rem] rounded-lg shadow-lg">
+          <div className="absolute z-10 py-2 px-5 bg-white w-2/3 md:w-1/2 border border-gray-200 left-3 md:left-[13.8rem] rounded-lg shadow-lg">
             <ul>
               {suggestion.map((s) => (
                 <li
@@ -98,7 +98,7 @@ const Header = () => {
                   className="pb-1 pt-3 shadow-sm hover:bg-gray-100">
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
-                    className="w-10"
+                    className="hidden md:w-10"
                   />
                   {s}
                 </li>

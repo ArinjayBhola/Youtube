@@ -8,7 +8,7 @@ const Body = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`fixed left-0 top-15 h-full ${
+        className={`hidden md:inline-block fixed left-0 top-15 h-full ${
           isSidebarVisible ? "w-52" : "w-0"
         } overflow-y-auto bg-white mt-16 z-10 transition-all duration-300 ease-in-out no-scrollbar`}>
         <Sidebar />
