@@ -70,10 +70,10 @@ const MovieDetail = ({ info }) => {
   const { title, channelTitle } = snippet;
 
   return (
-    <div>
-      <p className="px-5 m-3 -mt-11 font-bold text-xl">{title}</p>
-      <div className="mx-3 -my-5 flex justify-between">
-        <div className="flex m-5 items-center">
+    <div className="p-5 md:-mt-11">
+      <p className="font-bold text-xl">{title}</p>
+      <div className="flex flex-col md:flex-row justify-between items-center mt-3">
+        <div className="flex items-center mb-3 md:mb-0">
           {thumbnails && thumbnails.default && thumbnails.default.url && (
             <img
               src={thumbnails.default.url}
@@ -87,8 +87,8 @@ const MovieDetail = ({ info }) => {
           </div>
           <button className="ml-5 bg-black text-white p-3 rounded-2xl hover:opacity-80">Subscribe</button>
         </div>
-        <div className="flex items-center">
-          <div className="m-5 p-2 flex bg-gray-300 items-center rounded-xl">
+        <div className="flex items-center mt-3 md:mt-0">
+          <div className="flex bg-gray-300 items-center rounded-xl">
             <FontAwesomeIcon
               icon={faThumbsUp}
               className="ml-3"
@@ -103,19 +103,19 @@ const MovieDetail = ({ info }) => {
               className="mx-3"
             />
           </div>
-          <div className="m-5 p-2 flex bg-gray-300 items-center rounded-xl">
+          <div className="ml-3 flex bg-gray-300 items-center rounded-xl p-2">
             <FontAwesomeIcon
               icon={faShare}
               className="mx-1"
             />
-            <p className="mx-1">Share</p>
+            <p className="hidden md:inline-block p-2 mx-1">Share</p>
           </div>
-          <div className="m-5 p-2 flex bg-gray-300 items-center rounded-xl">
+          <div className="ml-3 flex bg-gray-300 items-center rounded-xl p-2">
             <FontAwesomeIcon
               icon={faDownload}
               className="mx-1"
             />
-            <p className="mx-1">Download</p>
+            <p className="hidden md:inline-block p-2 mx-1">Download</p>
           </div>
         </div>
       </div>
